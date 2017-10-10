@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<meta name="format-detection" content="telephone=no,email=no" />
+	<title>中国成就 骄傲国人震撼世界</title>
+	<script>
+		document.addEventListener("touchmove",function(e){e.preventDefault();},{ passive: false });
+		document.querySelector('html').style.fontSize=document.documentElement.clientWidth /10 + 'px';
+	</script>
+	<style>
+		
+	</style>
+</head>
+<body>
+		<div id="fly-main-ui">
+		</div>
+	 
+		<script src='http://res.wx.qq.com/open/js/jweixin-1.2.0.js'></script> 
+
+		<script type="text/javascript">
+
+			
+
+			
+			window.PointerEvent = undefined;
+			function onError(){
+				var script  = document.createElement('script');
+				script.src = './assets/js/index.js?aa='+new Date().getTime();
+				document.body.appendChild(script);
+			}
+
+
+			window.h5name = 'revivalroad';
+
+			window.href = 'http://h5.zmiti.com/public/'+window.h5name;
+
+			window.share = {
+				title:'中国成就 骄傲国人震撼世界',
+				desc:'中国成就 骄傲国人震撼世界'
+			}
+
+
+			window.gkShare = {
+				title:'{nickname}在“中国成就”拼图游戏中成功闯到第{gk}关',
+				desc:'中国成就 骄傲国人震撼世界'
+			}
+
+		</script>
+
+		<!--
+		
+			
+		<script src='./assets/js/vendor.js'></script>
+	
+		<script src='./assets/js/index.js'></script>
+		-->
+		
+		<script src='http://localhost:4008/index.js' onError='onError()'></script>
+
+		
+	
+</body>
+</html>

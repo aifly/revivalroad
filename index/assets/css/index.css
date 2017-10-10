@@ -1,0 +1,82 @@
+/*.ant-btn:focus, .ant-btn:hover,.ant-input:focus, .ant-input:hover {
+    background-color: #fff;
+    border-color: #bf1616;
+    box-shadow: 0 0 0 2px rgba(191, 22, 22, 0.1);
+}*/
+.lt-full {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0; }
+
+.zmiti-text-overflow {
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis; }
+
+.zmiti-index-main-ui {
+  width: 100%;
+  height: 100%;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  left: 0;
+  top: 0;
+  background: #f46a1c;
+  z-index: 100;
+  position: absolute; }
+  .zmiti-index-main-ui.hide {
+    display: none; }
+  .zmiti-index-main-ui .zmiti-index-bottom, .zmiti-index-main-ui .zmiti-index-top {
+    position: absolute;
+    z-index: -1; }
+  .zmiti-index-main-ui .zmiti-index-chengjiu {
+    width: 8rem;
+    margin: 1.4rem  auto 0; }
+  .zmiti-index-main-ui .zmiti-index-text {
+    width: 9rem;
+    margin: .5rem  auto 0; }
+  .zmiti-index-main-ui .zmiti-index-logo {
+    width: 4rem;
+    margin: .2rem  auto 0; }
+  .zmiti-index-main-ui .zmiti-index-gamestart {
+    width: 4rem;
+    margin: .2rem  auto 0;
+    position: relative;
+    background: #ffdf1b;
+    text-align: center;
+    font-weight: bold;
+    color: #f2400f;
+    line-height: 1rem;
+    height: 1rem;
+    border-radius: 15px; }
+    .zmiti-index-main-ui .zmiti-index-gamestart.active {
+      -webkit-transform: translate3d(0, 5px, 0);
+      transform: translate3d(0, 5px, 0); }
+      .zmiti-index-main-ui .zmiti-index-gamestart.active:before, .zmiti-index-main-ui .zmiti-index-gamestart.active:after {
+        display: none; }
+    .zmiti-index-main-ui .zmiti-index-gamestart:before, .zmiti-index-main-ui .zmiti-index-gamestart:after {
+      content: '';
+      border-radius: 15px;
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 80%;
+      left: 0;
+      bottom: 0; }
+    .zmiti-index-main-ui .zmiti-index-gamestart:after {
+      background: #ff8009;
+      bottom: -4px;
+      width: 98%;
+      left: 1%; }
+    .zmiti-index-main-ui .zmiti-index-gamestart:before {
+      width: 102%;
+      left: -1%;
+      background: #751c00;
+      bottom: -8px; }
+  .zmiti-index-main-ui .zmiti-index-bottom {
+    bottom: 0; }
+
+/*# sourceMappingURL=index.css.map */
