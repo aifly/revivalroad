@@ -16,6 +16,7 @@ class ZmitiStage extends Component {
 
     this.state = {
 
+      points: []
 
 
     }
@@ -29,16 +30,56 @@ class ZmitiStage extends Component {
 
 
     return <div className='zmiti-stage-main-ui'>
-        <canvas ref='canvas' width='300' height='300' style={{border:'1px solid red'}}></canvas>
+        <canvas ref='canvas' width='320' height='568'></canvas>
+        <div className='zmiti-stage-point-C'>
+          {this.state.points.map((item,i)=>{
+            return <div key={i} className='zmiti-point' style={{WebkitTransform:'translate('+item.x+'px,'+(item.y)+'px)'}}>
+              {i+1}
+            </div>
+          })}
+        </div>
+        <div className='zmiti-translate' onClick={this.beginTranslate.bind(this)}>开始变换</div>
     </div>
 
+  }
+
+  beginTranslate() {
+
+
+    this.state.points = this.mess(this.state.points);
+
+
+    this.forceUpdate();
+
+  }
+
+  mess(arr) {
+    var _floor = Math.floor,
+      _random = Math.random,
+      len = arr.length,
+      i, j, arri,
+      n = _floor(len / 2) + 1;
+    while (n--) {
+      i = _floor(_random() * len);
+      j = _floor(_random() * len);
+      if (i !== j) {
+        arri = arr[i];
+        arr[i] = arr[j];
+        arr[j] = arri;
+      }
+    }
+    //增加切牌操作 
+    i = _floor(_random() * len);
+    arr.push.apply(arr, arr.splice(0, i));
+
+    return arr; //要不要返回打乱后的数组呢？ 
   }
 
 
   createPoints() {
 
     var arr = [],
-      R = 130,
+      R = 140,
       len = 6;
 
 
@@ -46,19 +87,35 @@ class ZmitiStage extends Component {
     for (var i = 0; i < len; i++) {
       var x = Math.sin(i * 360 / len * Math.PI / 180) * R;
       var y = Math.cos(i * 360 / len * Math.PI / 180) * R;
+      (i === 0) && (y += 50)
+      i === len / 2 && (y -= 50)
       arr.push({
         x: Math.round(x),
         y: Math.round(y)
       });
     }
+
+
+
+    this.state.points = arr.concat([]);
+
+    this.state.points = this.state.points.sort((item, i) => {
+      return Math.random() - .5;
+    });
+    this.forceUpdate();
+
     console.log(arr);
     return arr;
 
   }
 
   createLine() {
+
     var points = this.createPoints();
     var canvas = this.refs['canvas'];
+
+    canvas.width = this.viewW;
+    canvas.height = this.viewH;
 
     var context = canvas.getContext('2d');
 
