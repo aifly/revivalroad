@@ -51,6 +51,11 @@ class ZmitiShareApp extends Component {
         <div className='zmiti-share-bottom'>
           <img src='./assets/images/share-bottom.png'/>
         </div>
+        <div className='zmiti-bottom-bg'>
+        </div>
+        <div className='zmiti-qrcode'>
+            <img src='./assets/images/qrcode.png'/>
+        </div>
     </div>
   }
 

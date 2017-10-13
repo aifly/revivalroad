@@ -39,5 +39,22 @@
     position: absolute;
     left: 0;
     bottom: 0; }
+  .zmiti-share-main-ui .zmiti-bottom-bg {
+    width: 20rem;
+    left: -5rem;
+    height: 16rem;
+    bottom: 0;
+    -webkit-transform: translate3d(0, 14rem, 0);
+    transform: translate3d(0, 14rem, 0);
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 100; }
+  .zmiti-share-main-ui .zmiti-qrcode {
+    position: absolute;
+    width: 3rem;
+    right: .4rem;
+    bottom: 0;
+    z-index: 101; }
 
 /*# sourceMappingURL=index.css.map */
