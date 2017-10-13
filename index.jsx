@@ -186,6 +186,7 @@ class App extends Component {
 
 		return <div className='zmiti-main-ui'>
 			{!isExist && <ZmitiStage {...data}></ZmitiStage>}
+			{!isExist && <ZmitiShareApp {...data}></ZmitiShareApp>}
 			
 		</div>
 	}

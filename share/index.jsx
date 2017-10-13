@@ -18,7 +18,7 @@ class ZmitiShareApp extends Component {
     super(props);
 
     this.state = {
-      className: 'hide',
+      className: '',
 
     }
     this.viewW = document.documentElement.clientWidth;
@@ -42,64 +42,18 @@ class ZmitiShareApp extends Component {
     }
 
 
-    var src = s.getQueryString('src')
-
 
     return <div className={'zmiti-share-main-ui '+ this.state.className}>
-        <div className='zmiti-share-bg'>
-          <div className='zmiti-share-info'>
-            <div>{decodeURI(this.state.nickname|| '我')}在“中国成就”拼图游戏中</div>
-            <div>用时:{this.state.duration||0}s</div>
-            <div>成功闯到第{this.state.gk}关!</div>
-            <div className='zmiti-puzzle-img'>
-              <img src={this.state.src}/>
-            </div>
-
-            {(this.state.gk >= window.durations.length|| src) && <div className='zmiti-medo'>
-                          <a href={window.href}><img src='./assets/images/medo.png'/></a>
-                        </div>}
-            {(this.state.gk||0 ) < window.durations.length && !src && <div className='zmiti-continu'>
-                <div onClick={this.showMask.bind(this)} className={this.state.shareClass||''} onTouchStart={()=>{this.setState({shareClass:'active'})}}  onTouchEnd={()=>{this.setState({shareClass:''})}}>分享</div>
-                <div style={{width:20}}></div>
-                <div className={this.state.nextClass||''} onClick={this.nextGk.bind(this)} onTouchStart={()=>{this.setState({nextClass:'active'})}}  onTouchEnd={()=>{this.setState({nextClass:''})}}>下一关</div>
-            </div>}
-          </div>
+        <div className='zmiti-share-top'>
+          <img src='./assets/images/share-top.png'/>
         </div>
 
-        {this.state.showMask && <div onTouchStart={()=>{this.setState({showMask:false})}} className='zmiti-mask' style={maskStyle}></div>}
+        <div className='zmiti-share-bottom'>
+          <img src='./assets/images/share-bottom.png'/>
+        </div>
     </div>
   }
-  showMask() {
-    this.setState({
-      showMask: true
-    })
-  }
 
-  nextGk() {
-    var {
-      obserable
-    } = this.props;
-
-    this.setState({
-      className: 'hide'
-    })
-
-    obserable.trigger({
-      type: 'nextGK'
-    })
-  }
-
-  showToast(msg) {
-    this.setState({
-      toast: msg
-    });
-
-    setTimeout(() => {
-      this.setState({
-        toast: ''
-      });
-    }, 2000)
-  }
 
 
   componentDidMount() {

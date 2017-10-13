@@ -6,6 +6,7 @@
   top: 0;
   width: 100%;
   height: 100%;
+  background: #f8f7e5;
   @include displayBox(vertical);
 
   .zmiti-stage-point-C {
@@ -17,19 +18,89 @@
   }
 
   .zmiti-point {
-    $size: 20px;
+    $size: 80px;
     width: $size;
     height: $size;
-    background: #f00;
     @include pos(a);
     left: 50%;
+    @include br(50%);
     top: 50%;
     text-align: center;
     line-height: $size;
     color: #fff;
     margin-left: -$size/2;
     margin-top: -$size/2;
-    @include transition(.3s);
+    $time: 0s;
+    $dur: .3s;
+    z-index: 1;
+
+    .zmiti-meteor {
+      @include pos(a);
+      @include transform(translate3d(800px, -800px, 0));
+
+      &.show {
+        @include transition(.5s);
+        @include transform(translate3d(40px, -40px, 0));
+      }
+
+      &.error {
+        @include transition(.7s);
+        @include transform(translate3d(-400px, 400px, 0));
+      }
+
+    }
+
+    &:last-of-type {
+      &:before, &:after {
+        display: none;
+      }
+
+    }
+
+    &.active {
+      &:before, &:after {
+        content: '';
+        @include pos(a);
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        @include br();
+        //box-shadow: 0 0 20px rgba(255, 249, 145, .9)
+        @include animation(ripples 2s linear infinite);
+      }
+
+      &:before {
+        @include animation(ripples 2s 1s linear infinite);
+      }
+
+    }
+
+    &:nth-of-type(1) {
+      @include transition_transform($dur $time);
+    }
+
+    &:nth-of-type(2) {
+      @include transition_transform($dur $time*2);
+    }
+
+    &:nth-of-type(3) {
+      @include transition_transform($dur $time*3);
+    }
+
+    &:nth-of-type(4) {
+      @include transition_transform($dur $time*4);
+    }
+
+    &:nth-of-type(5) {
+      @include transition_transform($dur $time*5);
+    }
+
+    &:nth-of-type(6) {
+      @include transition_transform($dur $time*6);
+    }
+
   }
 
   .zmiti-translate {
@@ -43,6 +114,82 @@
     text-align: center;
     line-height: 40px;
     z-index: 10;
+  }
+
+  .zmiti-top {
+    @include pos(a);
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    .zmiti-clock {
+      @include pos(a);
+      font-weight: bold;
+      font-size: .6rem;
+      color: #e75311;
+      right: 2rem;
+      top: .9rem;
+    }
+
+  }
+
+  .zmiti-xiaoxin {
+    @include pos(a);
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+
+    img:nth-of-type(2) {
+      @include pos(a);
+      top: 0rem;
+      width: 5rem;
+      z-index: 10;
+      left: 3rem;
+    }
+
+  }
+
+  .zmiti-error-mask {
+    @include pos(f);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1999;
+    background: rgba(0, 0, 0, .5);
+
+    input {
+      @include pos(a);
+      top: 50%;
+      left: 50%;
+      @include transform(translate3d(-50%, -50%, 0));
+      border: 1px solid red;
+      width: 200px;
+      height: 9rem;
+      opacity: 0;
+    }
+
+    img {
+      width: 200px;
+      @include pos(a);
+      left: 50%;
+      top: 50%;
+      @include transform(translate3d(-50%, -50%, 0));
+    }
+
+  }
+
+}
+
+@-webkit-keyframes ripples {
+  from {
+  }
+
+  to {
+    //background: rgba(255, 234, 52, .4);
+    background: #feb934;
+    opacity: 0;
+    @include transform(scale(1.4));
   }
 
 }
