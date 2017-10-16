@@ -6,7 +6,7 @@
   @include transition(.3s);
   left: 0;
   top: 0;
-  background: #f46a1c;
+  background: #56c6ff;
   z-index: 100;
   @include pos(a);
 
@@ -14,75 +14,94 @@
     display: none;
   }
 
-  .zmiti-index-bottom, .zmiti-index-top {
+  z-index: 2110;
+
+  .zmiti-index-footer {
     @include pos(a);
-    z-index: -1;
+    bottom: 2.5rem;
+    left: 0;
+    height: 5rem;
+
+    &>div {
+      @include pos(a);
+      width: 4rem;
+      left: 3rem;
+      top: 3rem;
+    }
+
   }
 
-  .zmiti-index-chengjiu {
-    width: 8rem;
-    margin: 1.4rem  auto 0;
+  .zmiti-fuxin {
+    width: 4rem;
+    @include pos(a);
+    left: 3rem;
+    top: .5rem;
+    @include transition(.4s);
+    @include transform(scale(0));
+    //@include transitionTimingFunction();
+
+    &.active {
+      @include transform(scale(1));
+    }
+
+  }
+
+  .zmiti-ar1, .zmiti-ar2 {
+    @include pos(a);
+    width: 2rem;
+    left: 2.4rem;
+    top: 4rem;
+    @include transform(translate3d(-300px, 300px, 0));
+
+    &.active {
+      @include transition(.5s .4s);
+      @include transform(translate3d(0, 0, 0));
+    }
+
   }
 
   .zmiti-index-text {
-    width: 9rem;
-    margin: .5rem  auto 0;
-  }
-
-  .zmiti-index-logo {
-    width: 4rem;
-    margin: .2rem  auto 0;
-  }
-
-  .zmiti-index-gamestart {
-    width: 4rem;
-    margin: .2rem  auto 0;
-    @include pos(r);
-    background: #ffdf1b;
-    text-align: center;
-    font-weight: bold;
-    color: #f2400f;
-    line-height: 1rem;
-    height: 1rem;
-    @include br(15px);
+    @include pos(a);
+    width: 8rem;
+    left: 1rem;
+    color: #fff;
+    top: -1.52rem;
+    font-size: 14px;
+    text-indent: 2em;
+    line-height: .7rem;
+    opacity: 0;
+    @include transition(2s 1s);
 
     &.active {
-      &:before, &:after {
-        display: none;
-      }
-
-      @include transform(translate3d(0, 5px, 0));
-    }
-
-    &:before, &:after {
-      content: '';
-      @include br(15px);
-      @include pos(a);
-      z-index: -1;
-      width: 100%;
-      height: 80%;
-      left: 0;
-      bottom: 0;
-    }
-
-    &:after {
-      background: #ff8009;
-      bottom: -4px;
-      width: 98%;
-      left: 1%;
-    }
-
-    &:before {
-      width: 102%;
-      left: -1%;
-      background: #751c00;
-      bottom: -8px
+      opacity: 1;
     }
 
   }
 
-  .zmiti-index-bottom {
-    bottom: 0;
+  .zmiti-ar2 {
+    left: 6rem;
+    top: 1rem;
+    @include transform(translate3d(300px, -300px, 0));
+  }
+
+}
+
+@media all and (max-height:504px) {
+  .zmiti-index-main-ui {
+    .zmiti-index-text {
+      line-height: .6rem;
+    }
+
+  }
+
+}
+
+@media all and (max-height:612px) and(min-width:412px) {
+  .zmiti-index-main-ui {
+    .zmiti-index-text {
+      top: -1.10rem;
+    }
+
   }
 
 }

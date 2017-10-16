@@ -18,8 +18,9 @@ class ZmitiIndexApp extends Component {
 
 
     this.state = {
-      className: 'active',
-      startBtnClass: ''
+      className: '',
+      fuxinClass: '',
+      textClass: ''
 
     }
     this.viewW = document.documentElement.clientWidth;
@@ -28,24 +29,34 @@ class ZmitiIndexApp extends Component {
   }
   render() {
 
+    var mainStyle = {
+      background: '#56c6ff url(./assets/images/index-bottom.png) no-repeat center bottom',
+      backgroundSize: 'contain'
+    }
 
-    return <div className={'zmiti-index-main-ui '+this.state.className}>
-       <img src='./assets/images/top1.png' className='zmiti-index-top'/>
-       <div className='zmiti-index-chengjiu'>
-        <img src='./assets/images/chengjiu.png'/>
-       </div>
-       <div className='zmiti-index-text'>
-        <img src='./assets/images/text.png'/>
-       </div>
-       <div className='zmiti-index-logo'>
-        <img src='./assets/images/logo.png'/>
-       </div>
+    return <div style={mainStyle} className={'zmiti-index-main-ui '+this.state.className}>
 
-        <img src='./assets/images/bottom.png' className='zmiti-index-bottom'/>
-       <div onClick={this.beginGame.bind(this)} className={'zmiti-index-gamestart '+this.state.startBtnClass } onTouchStart={()=>{this.setState({startBtnClass:'active'})}}  onTouchEnd={()=>{this.setState({startBtnClass:''})}}>
-          开始游戏
-       </div>
+          <div className={'zmiti-fuxin '+this.state.fuxinClass}>
+            <img src='./assets/images/fuxin.png'/>
+          </div>        
 
+          <div className={'zmiti-ar1 '+this.state.fuxinClass}>
+            <img src='./assets/images/ar1.png'/>
+          </div>   
+          <div className={'zmiti-ar2 '+this.state.fuxinClass}>
+            <img src='./assets/images/ar2.png'/>
+          </div>
+
+          <footer className='zmiti-index-footer'>
+            <div onClick={this.beginGame.bind(this)}>
+              <img src='./assets/images/index-begin-btn.png'/>
+            </div>
+            <section className={'zmiti-index-text '+this.state.textClass}>
+              中国共产党第十九次全国代表大会召开啦！快跟小新一起迈进十九大会场，一睹现场全景，还有中央政治局新一届常委见面会直播哦！请将六个历史事件按时间顺序依次点亮，即可通过“复兴之路”迈入十九大会场！
+            </section>
+            
+          </footer>
+          
     </div>
 
   }
@@ -53,8 +64,25 @@ class ZmitiIndexApp extends Component {
   beginGame() {
     this.setState({
       className: 'hide'
+    });
+    var {
+      obserable
+    } = this.props;
+    obserable.trigger({
+      type: 'stageAnimate'
     })
   }
+
+  animate() {
+    this.setState({
+      fuxinClass: 'active',
+      textClass: 'active'
+    });
+
+
+  }
+
+
 
   showToast(msg) {
     this.setState({
@@ -71,6 +99,11 @@ class ZmitiIndexApp extends Component {
 
 
   componentDidMount() {
+
+    setTimeout(() => {
+      this.animate();
+    }, 1000)
+
     var {
       obserable
     } = this.props;

@@ -180,13 +180,17 @@ class App extends Component {
 			obserable,
 			wxConfig: this.wxConfig.bind(this),
 			changeURLPar: this.changeURLPar.bind(this),
-			nickname: this.state.nickname
+			nickname: this.state.nickname,
+			worksid: worksid
 		}
-		var isExist = this.state.src && this.state.nickname && this.state.duration;
+		var isExist = this.state.src;
 
 		return <div className='zmiti-main-ui'>
 			{!isExist && <ZmitiStage {...data}></ZmitiStage>}
 			{!isExist && <ZmitiShareApp {...data}></ZmitiShareApp>}
+			{!isExist && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
+
+			{isExist && <ZmitiShareApp {...data}></ZmitiShareApp>}
 			
 		</div>
 	}
@@ -437,28 +441,12 @@ class App extends Component {
 	componentDidMount() {
 		var s = this;
 		var src = s.getQueryString('src');
-		var nickname = s.getQueryString('nickname');
-		var duration = s.getQueryString('duration');
-		var gk = s.getQueryString('gk');
+		this.setState({
+			src
+		})
+		this.wxConfig(window.share.title, window.share.desc, window.clipShare.img);
 
-		if (src && duration) {
-			this.setState({
-				src,
-				nickname,
-				gk,
-				duration
-			});
-			var url = window.location.href.split('#')[0];
-			var title = window.gkShare.title.replace(/{nickname}/, nickname);
-			title = title.replace(/{gk}/, gk || 0);
-			title = title.replace(/{duration}/, duration || '');
-			this.wxConfig(title, window.gkShare.desc, 'http://h5.zmiti.com/public/' + window.h5name + '/assets/images/300.jpg', url);
-
-		} else {
-			this.wxConfig(window.share.title, window.share.desc, 'http://h5.zmiti.com/public/' + window.h5name + '/assets/images/300.jpg');
-		}
-
-		this.getOauthurl();
+		//this.getOauthurl();
 
 
 	}

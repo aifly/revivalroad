@@ -8,13 +8,21 @@
   height: 100%;
   z-index: 2040;
   overflow: hidden;
-  background: #000;
 
   &.hide {
     display: none;
   }
 
-  background: #56c6ff;
+  .zmiti-share-content {
+    background: #56c6ff;
+
+    &.hide {
+      display: none;
+    }
+
+  }
+
+  background: #eee;
 
   .zmiti-share-top {
     width: 5rem;
@@ -27,7 +35,7 @@
     width: 10rem;
     @include pos(a);
     left: 0;
-    bottom: 0;
+    bottom: 2rem;
   }
 
   .zmiti-bottom-bg {
@@ -35,19 +43,202 @@
     left: -5rem;
     height: 16rem;
     bottom: 0;
-    @include transform(translate3d(0, 14rem, 0));
+    @include transform(translate3d(0, 12rem, 0));
     background: #fff;
-    @include br();
+    border-radius: 10rem / 8rem;
     @include pos(a);
     z-index: 100;
   }
 
   .zmiti-qrcode {
     @include pos(a);
-    width: 3rem;
-    right: .4rem;
-    bottom: 0;
+    width: 2rem;
+    right: .2rem;
+    bottom: .5rem;
     z-index: 101;
+  }
+
+  .zmiti-mask {
+    @include pos(f);
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .zmiti-photo {
+    @include pos(a);
+    @include transformOrigin(center 2rem);
+    border: 2px solid #b52222;
+    padding: 10px;
+
+    img {
+      box-shadow: 0 0 0 5px #b52222;
+    }
+
+    &.active {
+      @include transition(.4s);
+      @include transform(scale(.7));
+    }
+
+    div {
+      width: 20px;
+      @include pos(a);
+      display: none;
+      right: -24px;
+      bottom: 0;
+      color: #b52222;
+    }
+
+  }
+
+  .zmiti-share-bottom-info {
+    @include pos(a);
+    width: 60%;
+    bottom: .5rem;
+    left: 20%;
+    @include transform(translate3d(0, 300px, 0));
+
+    &.active {
+      @include transform(translate3d(0, 0, 0));
+      @include transition(.4s .2s);
+    }
+
+    &>div {
+      @include displayBox(horizontal);
+
+      aside {
+        div {
+          @include br(10px);
+        }
+
+      }
+
+      &:nth-of-type(1) {
+        &>aside {
+          -webkit-box-flex: 1;
+
+          &:nth-of-type(2) {
+            div {
+              width: 2rem;
+            }
+
+          }
+
+        }
+
+        a {
+          color: #fff;
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+
+        div {
+          width: 3.2rem;
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+          background: #b52222;
+          color: #fff;
+        }
+
+      }
+
+      &:nth-of-type(2) {
+        height: 2rem;
+      }
+
+    }
+
+  }
+
+  @at-root.zmiti-fuxin {
+    width: 4rem;
+    @include pos(a);
+    left: 3rem;
+    top: 2rem;
+    @include transition(.4s);
+    @include transform(scale(0));
+    //@include transitionTimingFunction();
+
+    &.active {
+      @include transform(scale(1));
+    }
+
+  }
+
+  @at-root.zmiti-ar1, .zmiti-ar2 {
+    @include pos(a);
+    width: 2rem;
+    left: 2.4rem;
+    top: 5rem;
+    @include transform(translate3d(-300px, 300px, 0));
+
+    &.active {
+      @include transition(.5s .4s);
+      @include transform(translate3d(0, 0, 0));
+    }
+
+  }
+
+  @at-root.zmiti-ar2 {
+    left: 6rem;
+    top: 2rem;
+    @include transform(translate3d(300px, -300px, 0));
+  }
+
+  .zmiti-fuxin-text {
+    @include pos(a);
+    left: .2rem;
+    bottom: .2rem;
+    z-index: 100;
+    width: 7.3rem;
+    height: 2.5rem;
+    padding-left: 10px;
+    font-size: 12px;
+
+    .zmiti-text {
+      @include pos(a);
+      left: 2rem;
+      top: .4rem;
+      line-height: .8rem;
+    }
+
+    .zmiti-head {
+      width: 1.5rem;
+      height: 1.5rem;
+      padding: 4px;
+      background: #fff;
+      @include br(.75rem);
+      overflow: hidden;
+      z-index: 100;
+      margin-top: .4rem;
+      margin-left: -.2rem;
+
+      img {
+        @include br();
+      }
+
+    }
+
+    span {
+      left: .7rem;
+      width: 1.3rem;
+      top: -.1rem;
+      text-align: center;
+      font-weight: bold;
+      color: #fb4f51;
+      font-size: .4rem;
+      overflow: hidden;
+      max-width: 1.3rem;
+      padding: 0 2px;
+    }
+
+    div:nth-of-type(2) {
+    }
+
   }
 
 }
