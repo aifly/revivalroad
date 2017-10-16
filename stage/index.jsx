@@ -309,16 +309,19 @@ upload() { //上传照片
 setDrag() {
 
   var cacheCanvas = document.createElement('canvas');
+
   var img = new Image();
   img.crossOrigin = "anonymous"; //关键
   img.onload = function() {
-    var context = cacheCanvas.getContext('2d');
-
     cacheCanvas.width = img.width;
     cacheCanvas.height = img.height;
 
-    context.drawImage(img, 0, 0);
+    var context = cacheCanvas.getContext('2d');
+    context.drawImage(img,0,0);
 
+    cacheCanvas.className='zmiti-canvas'
+
+    document.body.appendChild(cacheCanvas);
     this.setState({
       imgLoaded: true
     }, () => {
@@ -339,7 +342,7 @@ setDrag() {
 
           X > rImg.width - this.state.canvasSize && (X = rImg.width - this.state.canvasSize)
           Y > rImg.height - this.state.canvasSize && (Y = rImg.height - this.state.canvasSize)
-
+          //document.title = Y;
           this.setState({
             transX: X,
             transY: Y
@@ -354,8 +357,8 @@ setDrag() {
       })
     })
     setTimeout(() => {
-      this.drawImage(cacheCanvas);
 
+      this.drawImage(cacheCanvas);
 
     }, 100)
 
@@ -373,7 +376,7 @@ drawImage(img) {
   var context = canvas.getContext('2d');
 
   var scale = img.width / img1.width;
-  //context.clearRect(0, 0, this.state.canvasSize, this.state.canvasSize)
+  context.clearRect(0, 0, this.state.canvasSize, this.state.canvasSize)
   context.drawImage(img, this.state.transX * scale, this.state.transY * scale, this.state.canvasSize * scale, this.state.canvasSize * scale, 0, 0, this.state.canvasSize, this.state.canvasSize);
 
 
