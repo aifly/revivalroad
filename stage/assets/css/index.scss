@@ -1,11 +1,14 @@
 ﻿@import "../../../assets/css/base.scss";
-.zmiti-canvas{
-  @include pos(f);
-  z-index: -1;
-  left: 500px;
-  top: 0;
 
+.zmiti-canvas {
+  @include pos(f);
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  border: 1px solid red;
+  background: #fff;
 }
+
 .zmiti-stage-main-ui {
   @include pos(a);
   left: 0;
@@ -20,8 +23,6 @@
   &.hide {
     display: none;
   }
-
-
 
   .zmiti-stage-point-C {
     @include pos(a);
@@ -144,10 +145,10 @@
   .zmiti-top {
     @include pos(a);
     top: 10px;
-    right: 10px;
+    left: 6rem;
     z-index: 10;
-    width: 2rem;
-    height: 2rem;
+    width: 1.8rem;
+    height: 1.8rem;
 
     .zmiti-clock {
       margin: 0 auto;
@@ -167,7 +168,7 @@
     height: 100%;
     left: 0;
     top: 0;
-    overflow:hidden;
+    overflow: hidden;
     background: rgba(0, 0, 0, .9);
     z-index: 9999;
 
@@ -242,12 +243,73 @@
 
     input {
       @include pos(a);
-      width: 200px;
+      width: 6rem;
       left: 0;
+      top: 0;
       height: 9rem;
       z-index: 10;
-      opacity: 1;
       opacity: 0;
+    }
+
+    .zmiti-drag {
+      @include pos(a);
+      left: 2.5rem;
+      top: 1rem;
+      z-index: 10;
+      color: #fff;
+      font-weight: bold;
+      width: 7rem;
+
+      img {
+        width: .8rem;
+        @include pos(a);
+        left: 50%;
+        margin-left: -.4rem;
+        margin-top: .4rem;
+        @include animation(arMove 1.2s infinite);
+      }
+
+    }
+
+    article {
+      margin-top: 1rem;
+
+      img {
+        width: 40%;
+        margin-left: 10px;
+      }
+
+    }
+
+    section {
+      left: 0;
+      top: 0;
+      background: #fff;
+
+      &.active {
+        -webkit-transition: 1s left, 1s top;
+        top: 6.5rem;
+        left: -2.5rem;
+      }
+
+      width: 6rem;
+      height: 6rem;
+      overflow: hidden;
+      @include pos(r);
+      box-shadow: 0 0 0 8px rgba(254, 185, 52, .4), 0 0 0 16px rgba(254, 185, 52, .2);
+      @include br(3rem);
+
+      img {
+        @include pos(a);
+        left: 0;
+        top: 0;
+        width: 7rem;
+      }
+
+      img.zmiti-rimg {
+        width: 6rem;
+      }
+
     }
 
     div {
@@ -276,12 +338,10 @@
 
     .zmiti-result-img {
       @include pos(a);
-      width: 4.8rem;
-      top: .5rem;
+      width: 6rem;
+      top: 0rem;
       left: 50%;
-      @include br();
       @include transform(translate3d(-50%, 0, 0));
-      box-shadow: 0 0 0 8px rgba(254, 185, 52, .4), 0 0 0 16px rgba(254, 185, 52, .2)
     }
 
   }
@@ -322,6 +382,13 @@
 @-webkit-keyframes meteorMove {
   to {
     @include transform(translate3d(-24rem, 24rem, 0));
+  }
+
+}
+
+@-webkit-keyframes arMove {
+  to {
+    @include transform(translate3d(0, 12px, 0));
   }
 
 }

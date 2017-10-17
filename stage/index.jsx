@@ -21,6 +21,9 @@ class ZmitiStage extends Component {
 
       points: [],
 
+
+      clipurl: '', // './assets/images/222.jpg',
+
       btns: [{
         src: './assets/images/1.png',
         id: 1
@@ -61,7 +64,9 @@ class ZmitiStage extends Component {
 
       transY: 0,
 
-      finishContent: '', // './assets/images/finish.png ',
+      scale: 1,
+
+      finishContent: '', //'./assets/images/finish.png',
 
 
       toast: '',
@@ -93,7 +98,8 @@ class ZmitiStage extends Component {
         WebkitAnimationDelay: 500 * 2 + 'ms'
       }],
 
-      imgLoaded: false
+      imgLoaded: false,
+      rotate: 0
 
 
     }
@@ -170,7 +176,7 @@ class ZmitiStage extends Component {
 
                     <div className='zmiti-img-C'>
                       <img ref='zmiti-img' src={this.state.uploadimg}/>
-                      <div  ref='clip'  style={{WebkitTransform:"translate("+this.state.transX+"px,"+this.state.transY+"px)",width:this.state.canvasSize,height:this.state.canvasSize}}>
+                      <div  ref='clip'  style={{WebkitTransform:"translate("+this.state.transX+"px,"+this.state.transY+"px) ",width:this.state.canvasSize,height:this.state.canvasSize}}>
                         <canvas ref='clipcanvas' width={this.state.canvasSize} height={this.state.canvasSize}></canvas>
                       </div>
                     </div>
@@ -191,8 +197,18 @@ class ZmitiStage extends Component {
   } {
     this.state.finishContent && <div  className='zmiti-error-mask'>
                     <div onClick={this.openUploadDialog.bind(this)}>
-                      <img className='zmiti-finish-content' src={this.state.finishContent}/>
-                    <img className='zmiti-result-img' src={this.state.clipurl||'./assets/images/7.png'}/>
+                      <div className='zmiti-drag'>
+                        <span>恭喜您用时<span style={{color:'#fff36a'}}> {this.state.clock}S</span> 走完复兴之路， 点击下方按钮来张合影吧！</span>
+                        <img src='./assets/images/ok-text.png' />
+                      </div>
+                      {!this.state.clipurl&& <img className='zmiti-finish-content' src={this.state.finishContent}/>}
+                    <section ref='zmiti-clip-img' style={{WebkitTransform:'rotate('+this.state.rotate+'deg) scale('+this.state.scale+')'}}>
+                        <img style={{left:this.state.transX,top:this.state.transY}} className={this.state.clipurl?'':'zmiti-rimg'} src={this.state.clipurl||'./assets/images/7.png'}/>
+                      </section>
+                    {this.state.clipurl&& !this.state.isShare && false && <article>
+                      {/*<img onClick={this.rotate.bind(this)} src='./assets/images/rotate.png'/>*/}
+                      <img onClick={this.entryShare.bind(this)} src='./assets/images/ok.png'/>
+                    </article>}
                     {this.state.showFile && <input accept="image/*" type='file' ref='file' onChange={this.upload.bind(this)}/>}
                     </div>
                 </div>
@@ -203,6 +219,13 @@ class ZmitiStage extends Component {
 }
 
 
+rotate() {
+  this.setState({
+    rotate: (this.state.rotate + 90) % 360
+  })
+}
+
+
 openUploadDialog() {
   $(this.refs['file']).trigger('click');
 }
@@ -210,63 +233,91 @@ openUploadDialog() {
 
 
 entryShare() {
+
   var {
     obserable
-  } = this.props;
+  } = this.props,
+    s = this;
 
-  var url = this.refs['clipcanvas'].toDataURL();
+  s.refs['zmiti-clip-img'].classList.add('active');
+
+  s.setState({
+    scale: .3,
+    isShare: true
+  })
 
 
 
-  this.setState({
-    uploadimg: '',
-    showFile: false,
-    clipurl: url
-  }, () => {
+  setTimeout(() => {
+    obserable.trigger({
+      type: 'setHeadimg',
+      data: {
+        headimg: s.state.clipurl,
+        count: s.personCount,
+        clock: s.state.clock,
+        rotate: s.state.rotate,
+        transX: s.state.transX,
+        transY: s.state.transY
+      }
+    });
+    s.setState({
+      finishContent: '',
+      className: 'hide'
+    });
+  }, 1000)
 
-    setTimeout(() => {
-      this.setState({
-        finishContent: '',
-        className: 'hide'
-      });
+  return;
 
+  html2canvas(dom, {
+    useCORS: true,
+    onrendered: function(canvas) {
+
+      var url = canvas.toDataURL();
       $.ajax({
         url: 'http://api.zmiti.com/v2/share/base64_image/',
         type: 'post',
         data: {
           setcontents: url,
-          setimage_w: s.state.canvasSize,
-          setimage_h: s.state.canvasSize
-        }
+          setimage_w: 6 * s.viewW / 10,
+          setimage_h: 6 * s.viewW / 10
+        },
+        success: function(data) {
+          if (data.getret === 0) {
+            var src = data.getimageurl;
+            //console.log(src)
 
-      }).done((data) => {
-        if (data.getret === 0) {
-          obserable.trigger({
-            type: 'setHeadimg',
-            data: {
-              headimg: data.getimageurl,
-              count: this.personCount,
-              clock: this.state.clock
-            }
-          })
+
+
+            /**/
+          }
+
         }
       })
 
+    },
+    width: s.viewW,
+    height: s.viewH
+  });
 
-    }, 2000)
-  })
+
+
 }
 
 upload() { //上传照片
+
+  var {
+    obserable
+  } = this.props;
   var formData = new FormData();
   this.setState({
     showUploadLoading: true,
     toast: '上传中,请稍候...'
   })
 
+  var s = this;
 
   formData.append('setupfile', this.refs['file'].files[0]);
-  formData.append('uploadtype', 1);
+  formData.append('uploadtype', 0);
   $.ajax({
     type: "POST",
     contentType: false,
@@ -274,6 +325,7 @@ upload() { //上传照片
     url: 'http://api.zmiti.com/v2/share/upload_file/',
     data: formData
   }).done((data) => {
+    console.log(data)
     if (data.getret === 0) {
       var url = data.getfileurl[0].datainfourl;
 
@@ -289,21 +341,91 @@ upload() { //上传照片
             this.showToast('未检测到人脸,请重新上传');
           } else {
             this.setState({
-              uploadimg: url,
+              clipurl: url,
               toast: ''
             }, () => {
 
-              this.setDrag();
+              //s.setImgPos();
+              if (data.airesult.result[0].rotation_angle === -90) {
+                return;
+                /*s.setState({
+                  rotate: 90
+                });
+                var img = new Image();
+                img.crossOrigin = "anonymous"; //关键
+                img.onload = () => {
+                  var canvas = document.createElement('canvas');
+                  canvas.width = img.height;
+                  canvas.height = img.width;
+
+                  var context = canvas.getContext('2d');
+
+                  context.save();
+                  context.translate(canvas.width / 2, canvas.height / 2);
+                  context.rotate(90 * Math.PI / 180)
+                  context.translate(-canvas.width / (canvas.width / canvas.height * 2), -canvas.height / (canvas.height / canvas.width * 2));
+                  context.drawImage(this, 0, 0, canvas.height, canvas.width);
+                  context.restore();
+
+
+                  canvas.className = 'zmiti-canvas';
+                  document.body.appendChild(canvas);
+                }
+                img.src = url;*/
+
+              }
+
+              s.setState({
+                showFile: false,
+              });
+              s.entryShare()
+
 
 
             })
           }
+        } else {
+          this.showToast('上传失败，请重试');
         }
       })
 
 
     }
-  });
+  }, () => {});
+}
+
+
+setImgPos() {
+  var clipRange = $(this.refs['zmiti-clip-img']);
+
+  clipRange.on('touchstart', e => {
+    var e = e.originalEvent.changedTouches[0];
+    var startX = e.pageX - clipRange[0].offsetLeft - this.state.transX
+    var startY = e.pageY - clipRange[0].offsetTop - this.state.transY
+
+    $(document).on('touchmove', e => {
+      var e = e.originalEvent.changedTouches[0];
+
+      var X = e.pageX - startX,
+        Y = e.pageY - startY;
+
+
+      // X > rImg.width - this.state.canvasSize && (X = rImg.width - this.state.canvasSize)
+      //Y > rImg.height - this.state.canvasSize && (Y = rImg.height - this.state.canvasSize)
+      //document.title = Y;
+
+      this.setState({
+        transX: X,
+        transY: Y
+      }, () => {
+        //this.drawImage(img)
+      })
+
+    }).on('touchend', e => {
+      var e = e.originalEvent.changedTouches[0];
+      $(document).off('touchmove touchend')
+    })
+  })
 }
 
 setDrag() {
@@ -326,7 +448,21 @@ setDrag() {
       imgLoaded: true
     }, () => {
       var clipRange = $(this.refs['clip']);
-      var rImg = this.refs['zmiti-img']
+      var rImg = this.refs['zmiti-img'];
+      rImg.crossOrigin = "anonymous"; //关键
+      rImg.onload = () => {
+        if (rImg.width > rImg.height) {
+          var canvas = this.refs['clipcanvas'];
+          //canvasSize.style.WebkitTransform = 'rotate(90deg)'
+          this.setState({
+            canvasSize: rImg.height
+          }, () => {
+            this.drawImage(img);
+          })
+        } else {
+          this.drawImage(img);
+        }
+      }
       clipRange.on('touchstart', e => {
         var e = e.originalEvent.changedTouches[0];
         var startX = e.pageX - clipRange[0].offsetLeft - this.state.transX
@@ -347,7 +483,7 @@ setDrag() {
             transX: X,
             transY: Y
           }, () => {
-            this.drawImage(cacheCanvas)
+            this.drawImage(img)
           })
 
         }).on('touchend', e => {
@@ -356,15 +492,10 @@ setDrag() {
         })
       })
     })
-    setTimeout(() => {
-      this.drawImage(cacheCanvas);
-    }, 100)
 
   }.bind(this);
 
   img.src = this.state.uploadimg
-
-
 
 }
 
@@ -374,9 +505,16 @@ drawImage(img) {
   var img1 = this.refs['zmiti-img'];
   var context = canvas.getContext('2d');
 
-  var scale = img.width / img1.width;
-  context.clearRect(0, 0, this.state.canvasSize, this.state.canvasSize)
+
+
+  var scale = 1; // img.width / img1.width;
+
+  context.clearRect(0, 0, this.state.canvasSize, this.state.canvasSize);
   context.drawImage(img, this.state.transX * scale, this.state.transY * scale, this.state.canvasSize * scale, this.state.canvasSize * scale, 0, 0, this.state.canvasSize, this.state.canvasSize);
+
+
+
+  //context.drawImage(img1, this.state.transX * scale, this.state.transY * scale, this.state.canvasSize * scale, this.state.canvasSize * scale);
 
 
 }
@@ -393,7 +531,6 @@ saveResult() {
       usetime: this.state.clock
     }
   }).done((data) => {
-    console.log(data);
     if (data.getret === 0) {
       this.personCount = data.count || 20;
     }
@@ -469,16 +606,14 @@ beginTranslate() {
         clock: this.state.clock + 1,
       })
     }, 1000)
-  }, 3000)
+  }, 2000)
 
 }
 
 componentWillUnmount() {
   clearTimeout(this.timer1)
   clearTimeout(this.timer2)
-  setTimeout(() => {
 
-  }, 100)
 
 }
 
@@ -596,7 +731,7 @@ animate() {
     })
     this.forceUpdate()
     this.beginTranslate();
-  }, 1100)
+  }, 300)
 }
 
 componentDidMount() {
@@ -604,6 +739,7 @@ componentDidMount() {
   var {
     obserable
   } = this.props;
+
   obserable.on('stageAnimate', e => {
     this.animate();
   })

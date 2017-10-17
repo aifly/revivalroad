@@ -7,7 +7,7 @@ import './assets/css/index.css';
 import {
   PubCom
 } from '../components/public/pub.jsx';
-
+import ZmitiToastApp from '../components/toast/index.jsx'
 
 var data = {
   wxappid: 'wxec2401ee9a70f3d9',
@@ -22,12 +22,15 @@ class ZmitiShareApp extends Component {
 
       fuxinClass: '',
 
-      headimg: './assets/images/head.png',
+      headimg: '', //'./assets/images/111.png',
       clock: 0,
       count: 0,
       clipUrl: '',
       domClass: '',
-      showMask: false
+      showMask: false,
+      transX: 0,
+      transY: 0,
+      rotate: 0
 
 
     }
@@ -89,7 +92,9 @@ class ZmitiShareApp extends Component {
                         <img src={this.state.qrcode||'./assets/images/qrcode.png'}/>
                     </div>}
            <div className='zmiti-fuxin-text' >
-               {this.state.headimg && <img src={this.state.headimg} className='zmiti-head'/>}
+               {this.state.headimg && <div  className={'zmiti-head '+(this.state.rotate!==0?'active':'')}>
+                  <img src={this.state.headimg}  />
+                </div>}
 
               <div className='zmiti-text'>
                     <div>我用<span>{this.state.clock}</span>秒时间击败了<span>{this.state.count}</span>人</div> < div > 点亮 < span > 复兴之路 < /span>走进十九大会场</div >
@@ -117,22 +122,24 @@ class ZmitiShareApp extends Component {
 
                 {this.state.src && <div>
                             <aside style={{margin:'0 auto'}}>
-                              <div><a href={window.location.href.split('?')[0]}>走向复兴之路</a></div>
+                              <div><a href={window.location.href.split('?')[0]}>走复兴之路</a></div>
                             </aside>
                         </div>}
             <div>
               <img src='./assets/images/copyright.png'/>
             </div>
         </div>
-    }
-
-    {
+    } {
+      this.state.toast && <ZmitiToastApp toast={this.state.toast}></ZmitiToastApp>
+    } {
       this.state.showMask && <div onTouchStart={()=>{this.setState({showMask:false})}} className='zmiti-mask' style={maskStyle}>
         </div>
     } < /div>
   }
 
   animate() {
+
+
     this.setState({
       fuxinClass: 'active'
     })
@@ -168,6 +175,9 @@ class ZmitiShareApp extends Component {
       changeURLPar,
       wxConfig
     } = this.props;
+    /* this.setState({
+       toast: '正在生成图片...'
+     })*/
     html2canvas(dom, {
       useCORS: true,
       onrendered: function(canvas) {
@@ -177,8 +187,11 @@ class ZmitiShareApp extends Component {
         //$('#audio')[0].play();
 
         s.refs['clipaudio'].play();
+
+
         s.setState({
           clipUrl: url,
+          toast: ''
         });
 
         $.ajax({
@@ -281,7 +294,10 @@ class ZmitiShareApp extends Component {
       this.setState({
         headimg: e.headimg,
         count: e.count,
-        clock: e.clock
+        clock: e.clock,
+        rotate: e.rotate,
+        transX: e.transX / 4,
+        transY: e.transY / 4
       });
 
       setTimeout(() => {

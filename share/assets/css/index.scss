@@ -211,14 +211,27 @@
       height: 1.5rem;
       padding: 4px;
       background: #fff;
-      @include br(.75rem);
+      @include br(1rem);
       overflow: hidden;
+      @include pos(a);
       z-index: 100;
       margin-top: .4rem;
       margin-left: -.2rem;
 
+      &.active {
+        img {
+          width: 2.5rem;
+          left: -.25rem;
+          top: -.05rem;
+        }
+
+      }
+
       img {
-        @include br();
+        width: 2rem;
+        left: -.25rem;
+        top: -.25rem;
+        @include pos(r);
       }
 
     }

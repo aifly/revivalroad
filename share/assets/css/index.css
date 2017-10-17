@@ -171,13 +171,21 @@
       height: 1.5rem;
       padding: 4px;
       background: #fff;
-      border-radius: 0.75rem;
+      border-radius: 1rem;
       overflow: hidden;
+      position: absolute;
       z-index: 100;
       margin-top: .4rem;
       margin-left: -.2rem; }
+      .zmiti-share-main-ui .zmiti-fuxin-text .zmiti-head.active img {
+        width: 2.5rem;
+        left: -.25rem;
+        top: -.05rem; }
       .zmiti-share-main-ui .zmiti-fuxin-text .zmiti-head img {
-        border-radius: 50%; }
+        width: 2rem;
+        left: -.25rem;
+        top: -.25rem;
+        position: relative; }
     .zmiti-share-main-ui .zmiti-fuxin-text span {
       left: .7rem;
       width: 1.3rem;

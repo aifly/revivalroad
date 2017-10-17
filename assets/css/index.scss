@@ -48,3 +48,23 @@ input, textarea {
   height: 100%;
   @include pos(a);
 }
+
+.zmiti-audio {
+  @include pos(a);
+  z-index: 440000;
+  width: 1rem;
+  height: 1rem;
+  right: .5rem;
+  top: .5rem;
+}
+
+.zmiit-rotation {
+  @include animation(bgSound 5s linear infinite);
+}
+
+@-webkit-keyframes bgSound {
+  to {
+    @include transform(rotate(360deg));
+  }
+
+}

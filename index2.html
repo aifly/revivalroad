@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<meta name="format-detection" content="telephone=no,email=no" />
+	<title>点亮复兴之路</title>
+	<script>
+		document.addEventListener("touchmove",function(e){e.preventDefault();},{ passive: false });
+		document.querySelector('html').style.fontSize=document.documentElement.clientWidth /10 + 'px';
+	</script>
+	<style>
+		canvas{
+			transform: scale(.5);
+			transform-origin: top
+		}
+		img{width:100%;}
+	</style>
+</head>
+<body>
+	
+	
+	<script>
+		
+		window.onload = function(){
+			var canvas = document.createElement('canvas');
+			
+
+			var context = canvas.getContext('2d');
+
+			var img = new Image();
+			img.onload = function(){
+				canvas.width =  this.height;
+				canvas.height =this.width;
+
+				context.save();
+				context.translate(canvas.width/2,canvas.height/2);
+				context.rotate(90*Math.PI/180)
+				context.translate(-canvas.width/(canvas.width/canvas.height*2),-canvas.height/(canvas.height/canvas.width*2));
+				context.drawImage(this,0,0,canvas.height,canvas.width);
+				context.restore();
+
+			}
+			img.src ='./assets/images/22.jpg';
+
+			document.body.appendChild(canvas)
+		}
+	</script>
+	 
+	
+
+		
+	
+</body>
+</html>

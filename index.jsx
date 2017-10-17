@@ -27,7 +27,7 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
+			audioState: false
 		}
 
 		this.viewW = document.documentElement.clientWidth;
@@ -191,6 +191,11 @@ class App extends Component {
 			{!isExist && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
 
 			{isExist && <ZmitiShareApp {...data}></ZmitiShareApp>}
+			<audio ref='audio' loop autoPlay src='./assets/music/bg.mp3'></audio>
+			<div className='zmiti-audio' onClick={this.toggleMusic.bind(this)}>
+				{this.state.audioState && <img src='./assets/images/bg-ico2.png' className='zmiit-rotation'/>}
+				{!this.state.audioState && <img src='./assets/images/bg-ico1.png'/>}
+			</div>
 			
 		</div>
 	}
@@ -299,140 +304,8 @@ class App extends Component {
 		return null;
 	}
 
-	request(openid, nickname) {
-		var s = this;
-		$.ajax({
-			url: 'http://api.zmiti.com/v2/works/update_pvnum/',
-			data: {
-				worksid: worksid
-			},
-			success(data) {
-				if (data.getret === 0) {}
-			}
-		});
-
-		var idx = Math.random() * s.zmitiMap.length | 0;
-
-		$.ajax({
-			url: 'http://api.zmiti.com/v2/weixin/save_userview/',
-			type: 'post',
-			data: {
-				worksid: worksid,
-				wxopenid: openid,
-				wxname: nickname,
-				usercity: s.zmitiMap[idx].name,
-				longitude: s.zmitiMap[idx].log,
-				latitude: s.zmitiMap[idx].lat
-			}
-		}).done((data) => {
-			if (data.getret === 0) {
-
-			} else {
-				//alert('save_userview getret : '+ data.getret +' msg : '+ data.getmsg)
-			}
-		}, () => {
-			//alert('save_userview error');
-		})
 
 
-		//获取用户积分
-		//
-		var opt = {
-			type: 'map',
-			address: s.zmitiMap[idx].name,
-			pos: [s.zmitiMap[idx].log, s.zmitiMap[idx].lat],
-			nickname: s.nickname,
-			headimgurl: s.headimgurl
-		}
-		$.ajax({
-			url: 'http://api.zmiti.com/v2/msg/send_msg/',
-			type: 'post',
-			data: {
-				type: worksid,
-				content: JSON.stringify(opt),
-				to: opt.to || ''
-			},
-			success(data) {
-
-				//console.log(data);
-			}
-		})
-	}
-	getOauthurl() {
-		var s = this;
-
-
-
-		$.ajax({
-			type: 'post',
-			url: 'http://api.zmiti.com/v2/weixin/getwxuserinfo/',
-			data: {
-				code: s.getQueryString('code'),
-				wxappid: data.wxappid,
-				wxappsecret: data.wxappsecret
-			},
-			error(e) {},
-			success(dt) {
-
-				if (dt.getret === 0) {
-
-					s.openid = dt.userinfo.openid;
-					s.nickname = dt.userinfo.nickname;
-					s.headimgurl = dt.userinfo.headimgurl;
-
-					window.localStorage.setItem('nickname', s.nickname);
-
-					//s.wxConfig(window.share.title.replace(/{nickname}/, s.nickname), window.share.desc.replace(/{nickname}/, s.nickname), 'http://h5.zmiti.com/public/' + window.h5name + '/assets/images/300.jpg');
-
-					s.state.nickname = s.nickname;
-					window.nickname = s.nickname;
-					s.forceUpdate();
-
-					s.request(s.openid, s.nickname);
-
-
-				} else {
-					if (s.isWeiXin()) {
-						var nickname = s.getQueryString('nickname');
-						var src = s.getQueryString('src');
-						var duration = s.getQueryString('duration');
-						var gk = s.getQueryString('gk');
-
-						var redirect_uri = window.location.href.split('?')[0];
-
-						var symbol = redirect_uri.indexOf('?') > -1 ? '&' : '?';
-
-						if (nickname) {
-							redirect_uri = s.changeURLPar(redirect_uri, 'nickname', (nickname));
-							redirect_uri = s.changeURLPar(redirect_uri, 'src', (src));
-							redirect_uri = s.changeURLPar(redirect_uri, 'duration', (duration));
-							redirect_uri = s.changeURLPar(redirect_uri, 'gk', (gk));
-						}
-
-						//url = s.changeURLPar(url, 'nickname', 'zmiti');
-
-
-						$.ajax({
-							url: 'http://api.zmiti.com/v2/weixin/getoauthurl/',
-							type: 'post',
-							data: {
-								redirect_uri: redirect_uri,
-								scope: 'snsapi_userinfo',
-								worksid: worksid,
-								state: new Date().getTime() + ''
-							},
-							error() {},
-							success(dt) {
-								if (dt.getret === 0) {
-									window.location.href = dt.url;
-								}
-							}
-						})
-					} else {}
-				}
-			}
-		});
-	}
 	changeURLPar(url, arg, val) {
 		var pattern = arg + '=([^&]*)';
 		var replaceText = arg + '=' + val;
@@ -446,8 +319,35 @@ class App extends Component {
 		})
 		this.wxConfig(window.share.title, window.share.desc, window.clipShare.img);
 
+
+		var audio = this.refs['audio'];
+		//audio.volume = 0.2;
+
+		audio.addEventListener('play', () => {
+			this.setState({
+				audioState: true
+			})
+		})
+		audio.addEventListener('pause', () => {
+			this.setState({
+				audioState: false
+			})
+		});
+
+		$(document).one('touchstart', () => {
+			if (audio.paused) {
+				audio.play();
+			}
+		});
 		//this.getOauthurl();
 
+
+	}
+
+	toggleMusic() {
+
+		var audio = this.refs['audio'];
+		audio[audio.paused ? 'play' : 'pause']();
 
 	}
 
