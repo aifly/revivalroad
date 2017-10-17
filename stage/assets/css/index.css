@@ -207,7 +207,7 @@
     left: 0;
     top: 0;
     z-index: 1999;
-    background: rgba(0, 0, 0, 0.5); }
+    background: rgba(0, 0, 0, 0.7); }
     .zmiti-stage-main-ui .zmiti-error-mask input {
       position: absolute;
       width: 6rem;
@@ -218,12 +218,14 @@
       opacity: 0; }
     .zmiti-stage-main-ui .zmiti-error-mask .zmiti-drag {
       position: absolute;
-      left: 2.5rem;
-      top: 1rem;
+      left: 2rem;
+      top: 1.5rem;
       z-index: 10;
       color: #fff;
       font-weight: bold;
-      width: 7rem; }
+      width: 8rem;
+      font-size: .5rem;
+      line-height: .8rem; }
       .zmiti-stage-main-ui .zmiti-error-mask .zmiti-drag img {
         width: .8rem;
         position: absolute;
@@ -240,6 +242,7 @@
     .zmiti-stage-main-ui .zmiti-error-mask section {
       left: 0;
       top: 0;
+      opacity: .8;
       background: #fff;
       width: 6rem;
       height: 6rem;

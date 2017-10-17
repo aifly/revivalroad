@@ -323,6 +323,16 @@ class App extends Component {
 		var audio = this.refs['audio'];
 		//audio.volume = 0.2;
 
+		setTimeout(function() {
+			$(window).scrollTop(1);
+		}, 0);
+		audio.play();
+		document.addEventListener("WeixinJSBridgeReady", function() {
+			WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
+				audio.play();
+			});
+		}, false);
+
 		audio.addEventListener('play', () => {
 			this.setState({
 				audioState: true

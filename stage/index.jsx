@@ -66,7 +66,7 @@ class ZmitiStage extends Component {
 
       scale: 1,
 
-      finishContent: '', //'./assets/images/finish.png',
+      finishContent: './assets/images/finish.png',
 
 
       toast: '',

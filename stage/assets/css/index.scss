@@ -239,7 +239,7 @@
     left: 0;
     top: 0;
     z-index: 1999;
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, .7);
 
     input {
       @include pos(a);
@@ -253,12 +253,14 @@
 
     .zmiti-drag {
       @include pos(a);
-      left: 2.5rem;
-      top: 1rem;
+      left: 2rem;
+      top: 1.5rem;
       z-index: 10;
       color: #fff;
       font-weight: bold;
-      width: 7rem;
+      width: 8rem;
+      font-size: .5rem;
+      line-height: .8rem;
 
       img {
         width: .8rem;
@@ -284,6 +286,7 @@
     section {
       left: 0;
       top: 0;
+      opacity: .8;
       background: #fff;
 
       &.active {
