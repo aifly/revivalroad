@@ -66,7 +66,7 @@ class ZmitiStage extends Component {
 
       scale: 1,
 
-      finishContent: './assets/images/finish.png',
+      finishContent: '', //./assets/images/finish.png',
 
 
       toast: '',
@@ -198,7 +198,7 @@ class ZmitiStage extends Component {
     this.state.finishContent && <div  className='zmiti-error-mask'>
                     <div onClick={this.openUploadDialog.bind(this)}>
                       <div className='zmiti-drag'>
-                        <span>恭喜您用时<span style={{color:'#fff36a'}}> {this.state.clock}S</span> 走完复兴之路， 点击下方按钮来张合影吧！</span>
+                        <span>恭喜你用时<span style={{color:'#fff36a'}}> {this.state.clock}S</span> 走完复兴之路， 点击下方按钮来张合影吧！</span>
                         <img src='./assets/images/ok-text.png' />
                       </div>
                       {!this.state.clipurl&& <img className='zmiti-finish-content' src={this.state.finishContent}/>}
