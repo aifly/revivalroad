@@ -355,11 +355,10 @@ setDrag() {
     })
     setTimeout(() => {
       this.drawImage(cacheCanvas);
-
-
     }, 100)
 
   }.bind(this);
+
   img.src = this.state.uploadimg
 
 
