@@ -39,7 +39,9 @@
       position: absolute;
       width: 4rem;
       left: 3rem;
-      top: 3rem; }
+      top: 3rem;
+      -webkit-animation: scale 1s linear infinite alternate;
+      animation: scale 1s linear infinite alternate; }
   .zmiti-index-main-ui .zmiti-fuxin {
     width: 4rem;
     position: absolute;
@@ -84,6 +86,13 @@
     -webkit-transform: translate3d(300px, -300px, 0);
     transform: translate3d(300px, -300px, 0); }
 
+@-webkit-keyframes scale {
+  from {
+    -webkit-transform: scale(0.97);
+    transform: scale(0.97); }
+  to {
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03); } }
 @media all and (max-height: 504px) {
   .zmiti-index-main-ui .zmiti-index-text {
     line-height: .6rem; } }

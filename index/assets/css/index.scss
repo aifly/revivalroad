@@ -27,6 +27,7 @@
       width: 4rem;
       left: 3rem;
       top: 3rem;
+      @include animation(scale 1s linear infinite alternate);
     }
 
   }
@@ -82,6 +83,17 @@
     left: 6rem;
     top: 1rem;
     @include transform(translate3d(300px, -300px, 0));
+  }
+
+}
+
+@-webkit-keyframes scale {
+  from {
+    @include transform(scale(.97));
+  }
+
+  to {
+    @include transform(scale(1.03));
   }
 
 }
