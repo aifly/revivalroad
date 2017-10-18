@@ -22,7 +22,7 @@ class ZmitiShareApp extends Component {
 
       fuxinClass: '',
 
-      headimg: '', //'./assets/images/111.png',
+      headimg: '',
       clock: 0,
       count: 0,
       clipUrl: '',
@@ -92,9 +92,9 @@ class ZmitiShareApp extends Component {
                         <img src={this.state.qrcode||'./assets/images/qrcode.png'}/>
                     </div>}
            <div className='zmiti-fuxin-text' >
-               {this.state.headimg && <div  className={'zmiti-head '+(this.state.rotate!==0?'active':'')}>
+               <div  className={'zmiti-head '+(this.state.rotate!==0?'active':'')}>
                   <img src={this.state.headimg}  />
-                </div>}
+                </div>
 
               <div className='zmiti-text'>
                     <div>我用<span>{this.state.clock}</span>秒时间击败了<span>{this.state.count}</span>人</div> < div > 点亮 < span > 复兴之路 < /span>走进十九大会场</div >
@@ -146,7 +146,7 @@ class ZmitiShareApp extends Component {
 
     setTimeout(() => {
       this.clipImg()
-    }, 3000)
+    }, 2000)
   }
 
 
@@ -186,7 +186,7 @@ class ZmitiShareApp extends Component {
 
         //$('#audio')[0].play();
 
-        s.refs['clipaudio'].play();
+        //s.refs['clipaudio'].play();
 
 
         s.setState({
@@ -290,6 +290,11 @@ class ZmitiShareApp extends Component {
       this.setState(state);
     });
 
+
+
+    setTimeout(() => {
+      ///this.animate();
+    }, 2000)
     obserable.on('setHeadimg', e => {
       this.setState({
         headimg: e.headimg,
@@ -300,9 +305,11 @@ class ZmitiShareApp extends Component {
         transY: e.transY / 4
       });
 
+
       setTimeout(() => {
         this.animate();
-      }, 2000)
+      }, 1000);
+
     })
   }
 

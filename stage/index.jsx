@@ -137,7 +137,8 @@ class ZmitiStage extends Component {
             }
             if(this.state.pointStyle[i]){
                style = {
-                 WebkitTransform:'translate('+this.state.pointStyle[i].x+'px,'+(this.state.pointStyle[i].y)+'px)'
+                 WebkitTransform:'translate('+this.state.pointStyle[i].x+'px,'+(this.state.pointStyle[i].y)+'px)',
+                 transform:'translate('+this.state.pointStyle[i].x+'px,'+(this.state.pointStyle[i].y)+'px)'
                }
             }
             return <div onClick={this.play.bind(this,this.state.btns[i].id,item)}  key={i} className={'zmiti-point '+ item.className} style={style}>
@@ -176,7 +177,7 @@ class ZmitiStage extends Component {
 
                     <div className='zmiti-img-C'>
                       <img ref='zmiti-img' src={this.state.uploadimg}/>
-                      <div  ref='clip'  style={{WebkitTransform:"translate("+this.state.transX+"px,"+this.state.transY+"px) ",width:this.state.canvasSize,height:this.state.canvasSize}}>
+                      <div  ref='clip'  style={{WebkitTransform:"translate("+this.state.transX+"px,"+this.state.transY+"px) ",transform:"translate("+this.state.transX+"px,"+this.state.transY+"px) ",width:this.state.canvasSize,height:this.state.canvasSize}}>
                         <canvas ref='clipcanvas' width={this.state.canvasSize} height={this.state.canvasSize}></canvas>
                       </div>
                     </div>
@@ -202,7 +203,7 @@ class ZmitiStage extends Component {
                         <img src='./assets/images/ok-text.png' />
                       </div>
                       {!this.state.clipurl&& <img className='zmiti-finish-content' src={this.state.finishContent}/>}
-                    <section ref='zmiti-clip-img' style={{WebkitTransform:'rotate('+this.state.rotate+'deg) scale('+this.state.scale+')'}}>
+                    <section ref='zmiti-clip-img' style={{WebkitTransform:'rotate('+this.state.rotate+'deg) scale('+this.state.scale+')',transform:'rotate('+this.state.rotate+'deg) scale('+this.state.scale+')'}}>
                         <img style={{left:this.state.transX,top:this.state.transY}} className={this.state.clipurl?'':'zmiti-rimg'} src={this.state.clipurl||'./assets/images/7.png'}/>
                       </section>
                     {this.state.clipurl&& !this.state.isShare && false && <article>
@@ -239,16 +240,19 @@ entryShare() {
   } = this.props,
     s = this;
 
-  s.refs['zmiti-clip-img'].classList.add('active');
-
-  s.setState({
-    scale: .3,
-    isShare: true
-  })
+  setTimeout(() => {
+    s.refs['zmiti-clip-img'].classList.add('active');
+    s.setState({
+      scale: .3,
+      isShare: true
+    })
+  }, 1000)
 
 
 
   setTimeout(() => {
+
+
     obserable.trigger({
       type: 'setHeadimg',
       data: {
@@ -264,7 +268,7 @@ entryShare() {
       finishContent: '',
       className: 'hide'
     });
-  }, 1000)
+  }, 2000)
 
   return;
 
@@ -549,6 +553,7 @@ play(id, item) {
     return
 
   }
+
   var audio = this.refs[id - 1 === this.state.count ? 'right' : 'error'];
   audio.currentTime = 0;
   audio.play();
@@ -594,8 +599,6 @@ beginTranslate() {
 
 
   this.state.pointStyle = this.mess(this.state.pointStyle);
-
-
   this.forceUpdate();
 
 
@@ -726,9 +729,11 @@ drawLine(angle = 0) {
 
 animate() {
   setTimeout(() => {
+
     this.state.points.forEach((item, i) => {
       this.state.pointStyle.push(item);
     })
+
     this.forceUpdate()
     this.beginTranslate();
   }, 300)

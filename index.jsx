@@ -16,12 +16,11 @@ import ZmitiIndexApp from './index/index.jsx'
 
 
 var obserable = new Obserable();
-var worksid = '5838923350';
-var data = {
-	wxappid: 'wxec2401ee9a70f3d9',
-	wxappsecret: 'fc2c8e7c243da9e8898516fa5da8cbbb'
+var worksid = '1275459017';
+var data = { //新华社的公众号信息
+	wxappid: 'wx5ec3d35069383211',
+	wxappsecret: 'd94ea41d9cd2ba03c7cab5fc0e212cec'
 }
-
 
 class App extends Component {
 	constructor(props) {
@@ -191,7 +190,7 @@ class App extends Component {
 			{!isExist && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
 
 			{isExist && <ZmitiShareApp {...data}></ZmitiShareApp>}
-			<audio ref='audio' loop autoPlay src='./assets/music/bg.mp3'></audio>
+			<audio ref='audio' loop autoPlay src='./assets/music/bg.MP3'></audio>
 			<div className='zmiti-audio' onClick={this.toggleMusic.bind(this)}>
 				{this.state.audioState && <img src='./assets/images/bg-ico2.png' className='zmiit-rotation'/>}
 				{!this.state.audioState && <img src='./assets/images/bg-ico1.png'/>}

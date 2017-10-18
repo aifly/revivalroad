@@ -7,7 +7,7 @@
 	<title>走复兴之路，迈向十九大会场</title>
 	<script>
 		document.addEventListener("touchmove",function(e){e.preventDefault();},{ passive: false });
-		document.querySelector('html').style.fontSize=document.documentElement.clientWidth /10 + 'px';
+		document.getElementsByTagName('html')[0].style.fontSize=document.documentElement.clientWidth /10 + 'px';
 	</script>
 	<style>
 		
@@ -31,30 +31,34 @@
 
 			window.h5name = 'revivalroad';
 
-			window.href = 'http://h5.zmiti.com/public/'+window.h5name;
+			window.href = 'http://h5.zhongguowangshi.com/'+window.h5name+'/index.html';
 
 
 			window.clipShare = {
 				title:'我用时{clock}秒，击败了{count}人，点亮复兴之路走进十九大会场',
 				desc:'邀你PK一下',
-				img:'http://h5.zmiti.com/public/'+h5name+'/assets/images/300.jpg'
+				img:'http://h5.zhongguowangshi.com/'+window.h5name+'/assets/images/300.jpg'
 			}
 			window.share = {
 				title:'走复兴之路，迈向十九大会场',
 				desc:'一起来点赞十九大'
 			}
 
+			if(typeof Promise === 'undefined'){
+				var script = document.createElement('script');
+				script.src ='https://cdn.bootcss.com/es6-promise/4.1.1/es6-promise.auto.min.js';
+				document.body.appendChild(script);
+			}
 		</script>
 		
 		<script src='./assets/js/html2canvas.js'></script>
-		
-		<!--
 		<script src='./assets/js/vendor.js'></script>
-	
 		<script src='./assets/js/index.js'></script>
+		<!--
 	
-		-->
+		
 		<script src='http://localhost:4008/index.js' onError='onError()'></script>
+		-->
 		
 
 		
