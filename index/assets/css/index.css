@@ -72,9 +72,9 @@
     left: 1rem;
     color: #fff;
     top: -1.52rem;
-    font-size: 14px;
+    font-size: .5rem;
     text-indent: 2em;
-    line-height: .7rem;
+    line-height: .8rem;
     opacity: 0;
     -webkit-transition: 2s 1s;
     transition: 2s 1s; }
@@ -95,7 +95,7 @@
     transform: scale(1.03); } }
 @media all and (max-height: 504px) {
   .zmiti-index-main-ui .zmiti-index-text {
-    line-height: .6rem; } }
+    line-height: .8rem; } }
 @media all and (max-height: 612px) and (min-width: 412px) {
   .zmiti-index-main-ui .zmiti-index-text {
     top: -1.10rem; } }

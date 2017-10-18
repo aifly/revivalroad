@@ -52,7 +52,7 @@ class ZmitiIndexApp extends Component {
               <img src='./assets/images/index-begin-btn.png'/>
             </div>
             <section className={'zmiti-index-text '+this.state.textClass}>
-              中国共产党第十九次全国代表大会召开啦！快跟小新一起迈进十九大会场，一睹现场全景，还有中央政治局新一届常委见面会直播哦！请将六个历史事件按时间顺序依次点亮，即可通过“复兴之路”迈入十九大会场！
+              中国共产党第十九次全国代表大会召开啦！请随小新一起将六个历史事件按时间顺序依次点亮，即可通过“复兴之路”迈向十九大会场！
             </section>
             
           </footer>

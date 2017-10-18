@@ -67,9 +67,9 @@
     left: 1rem;
     color: #fff;
     top: -1.52rem;
-    font-size: 14px;
+    font-size: .5rem;
     text-indent: 2em;
-    line-height: .7rem;
+    line-height: .8rem;
     opacity: 0;
     @include transition(2s 1s);
 
@@ -101,7 +101,7 @@
 @media all and (max-height:504px) {
   .zmiti-index-main-ui {
     .zmiti-index-text {
-      line-height: .6rem;
+      line-height: .8rem;
     }
 
   }

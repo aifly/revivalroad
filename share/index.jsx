@@ -112,7 +112,7 @@ class ZmitiShareApp extends Component {
       this.state.clipUrl && <div className={'zmiti-share-bottom-info ' + (this.state.photoClass||'')}>
             {!this.state.src&&<div>
                             <aside>
-                              <div><a href={window.location.href.split('?')[0]}>重走复兴之路</a></div>
+                              <div><a href={window.location.href.split('?')[0]}>再挑战一次</a></div>
                             </aside>
                             <section style={{width:20}}></section>
                             <aside>
