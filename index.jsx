@@ -17,16 +17,17 @@ import ZmitiIndexApp from './index/index.jsx'
 
 var obserable = new Obserable();
 var worksid = '1275459017';
-worksid = '8986148900'; //linten
+worksid = '8410795790'; //马发展的账号创建的作品。
+//worksid = '8986148900'; //linten
 
 var data = { //新华社的公众号信息
-	wxappid: 'wx5ec3d35069383211',
-	wxappsecret: 'd94ea41d9cd2ba03c7cab5fc0e212cec'
-}
-data = {
-	wxappid: 'wxfacf4a639d9e3bcc',
-	wxappsecret: "149cdef95c99ff7cab523d8beca86080"
-}
+		wxappid: 'wx5ec3d35069383211',
+		wxappsecret: 'd94ea41d9cd2ba03c7cab5fc0e212cec'
+	}
+	//data = {
+	//	wxappid: 'wxfacf4a639d9e3bcc',
+	//	wxappsecret: "149cdef95c99ff7cab523d8beca86080"
+	//}
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -195,7 +196,7 @@ class App extends Component {
 			{!isExist && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
 
 			{isExist && <ZmitiShareApp {...data}></ZmitiShareApp>}
-			<audio ref='audio' loop autoPlay src='./assets/music/bg.MP3'></audio>
+			<audio ref='audio' loop autoPlay src='./assets/music/bg.mp3'></audio>
 			<div className='zmiti-audio' onClick={this.toggleMusic.bind(this)}>
 				{this.state.audioState && <img src='./assets/images/bg-ico2.png' className='zmiit-rotation'/>}
 				{!this.state.audioState && <img src='./assets/images/bg-ico1.png'/>}
@@ -219,7 +220,7 @@ class App extends Component {
 
 	wxConfig(title, desc, img, url) {
 		var s = this;
-		var appId = 'wxfacf4a639d9e3bcc'; //'wxfacf4a639d9e3bcc'; // data.wxappid; // 'wxfacf4a639d9e3bcc'; //data.wxappid;
+		var appId = data.wxappid; //'wxfacf4a639d9e3bcc'; // data.wxappid; // 'wxfacf4a639d9e3bcc'; //data.wxappid;
 
 		var durl = url || location.href.split('#')[0];
 
@@ -227,7 +228,7 @@ class App extends Component {
 
 		$.ajax({
 			type: 'get',
-			url: "http://api.zmiti.com/weixin/jssdk.php?type=signature&durl=" + code_durl,
+			url: "http://h5.zhongguowangshi.com/" + window.h5name + "/weixin/jssdk.php?type=signature&durl=" + code_durl + "&worksid=" + worksid,
 			dataType: 'jsonp',
 			jsonp: "callback",
 			jsonpCallback: "jsonFlickrFeed",
@@ -235,6 +236,7 @@ class App extends Component {
 
 			},
 			success(data) {
+				console.log(data);
 				wx.config({
 					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 					appId: appId, // 必填，公众号的唯一标识
@@ -321,6 +323,7 @@ class App extends Component {
 		this.setState({
 			src
 		})
+
 		this.wxConfig(window.share.title, window.share.desc, window.clipShare.img);
 
 
