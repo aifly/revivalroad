@@ -17,11 +17,16 @@ import ZmitiIndexApp from './index/index.jsx'
 
 var obserable = new Obserable();
 var worksid = '1275459017';
+worksid = '8986148900'; //linten
+
 var data = { //新华社的公众号信息
 	wxappid: 'wx5ec3d35069383211',
 	wxappsecret: 'd94ea41d9cd2ba03c7cab5fc0e212cec'
 }
-
+data = {
+	wxappid: 'wxfacf4a639d9e3bcc',
+	wxappsecret: "149cdef95c99ff7cab523d8beca86080"
+}
 class App extends Component {
 	constructor(props) {
 		super(props);
