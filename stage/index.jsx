@@ -332,7 +332,6 @@ upload() { //上传照片
     console.log(data)
     if (data.getret === 0) {
       var url = data.getfileurl[0].datainfourl;
-
       $.ajax({
         type: 'post',
         url: 'http://api.zmiti.com/v2/aiapi/detect',
@@ -531,8 +530,8 @@ saveResult() {
     type: 'post',
     url: 'http://api.zmiti.com/v2/h5/save_userusetime/',
     data: {
-        workid: worksid,
-        usetime: this.state.clock
+      workid: worksid,
+      usetime: this.state.clock
     }
   }).done((data) => {
     if (data.getret === 0) {
